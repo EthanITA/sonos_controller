@@ -1,12 +1,15 @@
 import soco
 from logger import logging
-from controller import coordinator, pretty_dict
+import controller
+from controller import coordinator
+
 
 try:
-    coordinator.shuffle = False
-    coordinator.shuffle = True
-    coordinator.next()
-    coordinator.play()
-    logging.info(pretty_dict(coordinator.get_current_track_info()))
+    controller.play()
+    logging.info(controller.pretty_dict(coordinator.get_current_track_info()))
 except Exception as e:
     logging.error(e)
+    coordinator.stop()
+    playlist_to_play = controller.auto_choose_playlist()
+    controller.play_playlist(playlist_to_play)
+    logging.info(f"Playing '{playlist_to_play}'' playlist")
