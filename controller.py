@@ -10,10 +10,14 @@ except Exception as e:
 
 
 def play():
-    coordinator.shuffle = False
-    coordinator.shuffle = True
-    coordinator.next()
-    coordinator.play()
+    try:
+        coordinator.shuffle = False
+        coordinator.shuffle = True
+        coordinator.next()
+    except Exception as e:
+        logging.error(e)
+    finally:
+        coordinator.play()
 
 
 def play_playlist(playlist):
